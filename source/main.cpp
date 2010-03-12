@@ -21,7 +21,6 @@ int main()
     defaultExceptionHandler();
 
     lcdMainOnBottom();
-    irqInit();
     irqEnable(IRQ_VBLANK);
 
     videoSetMode(MODE_FB0);
@@ -45,7 +44,7 @@ int main()
 	swiWaitForVBlank();
 
 	scanKeys();
-	touch=touchReadXY();
+	touchRead(&touch);
 
 	int kd = keysDown();
 	if (kd & KEY_A && points.size() > 1)
