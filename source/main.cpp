@@ -116,16 +116,20 @@ int main()
 
 	if(kd & KEY_TOUCH)
 	{
-	    firstTouch = touch;
-            draw::plot(touch.px,touch.py,RGB15(colours[0],colours[1],colours[2]));
-            points.push_back(PointPtr(new Point(touch.px-X_OFFSET, touch.py-Y_OFFSET)));
-	}
-
-	if(keysHeld() & KEY_TOUCH)
-	{
-            lastTouch = touch;
-            draw::line(firstTouch.px, firstTouch.py, lastTouch.px, lastTouch.py, RGB15(colours[0],colours[1],colours[2]));
-            firstTouch = touch;
+	    bool found = false;
+	    for(int i = 0; i < points.size(); ++i)
+	    {
+		if (points[i]->X == touch.px-X_OFFSET)
+		{
+		    found = true;
+		    break;
+		}
+	    }
+	    if (!found)
+	    {
+		draw::plot(touch.px,touch.py,RGB15(colours[0],colours[1],colours[2]));
+		points.push_back(PointPtr(new Point(touch.px-X_OFFSET, touch.py-Y_OFFSET)));
+	    }
 	}
     }
 
